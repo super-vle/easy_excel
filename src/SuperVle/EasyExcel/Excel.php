@@ -341,9 +341,17 @@ class Excel
             $style = [];
             if (isset($headerStyle['font'])) {
                 $style['font'] = $headerStyle['font'];
+                // 检查并修复字体颜色格式
+                if (isset($style['font']['color']) && is_string($style['font']['color'])) {
+                    $style['font']['color'] = ['rgb' => $style['font']['color']];
+                }
             }
             if (isset($headerStyle['fill'])) {
                 $style['fill'] = $headerStyle['fill'];
+                // 检查并修复填充颜色格式
+                if (isset($style['fill']['color']) && is_string($style['fill']['color'])) {
+                    $style['fill']['color'] = ['rgb' => $style['fill']['color']];
+                }
             }
             
             if (!empty($style)) {
