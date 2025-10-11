@@ -322,7 +322,10 @@ class Excel
     {
         $headerStyle = $this->config['headerStyle'];
         
-        foreach ($fields as $index => $field) {
+        // 使用数值索引遍历，避免使用fields数组的键作为索引
+        $fieldKeys = array_keys($fields);
+        foreach ($fieldKeys as $index => $fieldKey) {
+            $field = $fields[$fieldKey];
             $columnLetter = $columnLetters[$index];
             $cellAddress = $columnLetter . $headerRow;
             
