@@ -374,12 +374,15 @@ class Excel
         $batchData = [];
         $styleConfigurations = [];
         
+        // 获取所有字段键，避免在循环中重复调用array_keys
+        $fieldKeys = array_keys($fields);
+        
         foreach ($data as $rowIndex => $rowData) {
             $excelRowIndex = $rowIndex + $headerRow + 1;
             $excelRow = [];
             
-            foreach ($fields as $fieldIndex => $field) {
-                $fieldKey = array_keys($fields)[$fieldIndex];
+            foreach ($fieldKeys as $fieldIndex => $fieldKey) {
+                $field = $fields[$fieldKey];
                 $value = '';
                 
                 // 获取单元格值
