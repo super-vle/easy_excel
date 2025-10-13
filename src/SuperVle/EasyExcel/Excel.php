@@ -481,8 +481,12 @@ class Excel
      */
     protected function createAdditionalSheet(array $data, string $title, array $fields)
     {
-        $sheetIndex = $this->spreadsheet->createSheet();
-        $sheet = $this->spreadsheet->setActiveSheetIndex($sheetIndex);
+        // 先获取当前工作表数量作为新工作表的索引
+        $sheetIndex = $this->spreadsheet->getSheetCount();
+        // 创建新工作表
+        $sheet = $this->spreadsheet->createSheet();
+        // 激活新创建的工作表
+        $this->spreadsheet->setActiveSheetIndex($sheetIndex);
         $this->buildSheet($sheet, $data, $title, $fields);
     }
     
