@@ -278,8 +278,13 @@ class Excel
         
         // 自动调整列宽
         if ($this->config['autoSizeColumns']) {
-            foreach ($columnLetters as $columnLetter) {
-                $sheet->getColumnDimension($columnLetter)->setAutoSize(true);
+            foreach ($columnLetters as $columnIndex => $columnLetter) {
+                // 检查该列是否设置了固定宽度，如果没有才应用自动调整
+                $fieldKey = array_keys($fields)[$columnIndex];
+                $field = $fields[$fieldKey];
+                if (!isset($field['width']) || !is_numeric($field['width'])) {
+                    $sheet->getColumnDimension($columnLetter)->setAutoSize(true);
+                }
             }
         }
     }
